@@ -7,6 +7,10 @@ var pg = require('pg');
 var bodyParser = require('body-parser');
 var path = require('path');
 
+var conString = ('postgres://localhost:5432/snkl_dummy');
+
+
+
 app.set('port', process.env.PORT || 5000);
 
 app.get('/*', function(req,res){
