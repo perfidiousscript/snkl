@@ -10,8 +10,16 @@ snklApp.controller('MainController', ['$scope', '$http', function($scope,$http){
         method:'GET',
         url:'/populate'
     }).success(function(data){
-        $scope.dataArray = data;
+        d3.select('.showData').selectAll("p")
+            .data(data)
+            .enter()
+            .append("p")
+            .text(function(d){
+               return d.author_name;
+            });
     });
+
+
 
     //console.log("This works");
     //$scope.thing = {

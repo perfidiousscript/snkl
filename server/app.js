@@ -23,7 +23,7 @@ app.get('/populate', function(req,res) {
         var query = client.query(
             "SELECT authors.author_name, dates.birth_year, dates.death_year, dates.first_work, dates.last_work " +
                     "FROM authors, dates " +
-                    "WHERE dates.authorp_id = authors.id");
+                    "WHERE dates.author_id = authors.id");
 
         query.on("row", function (row) {
             results.push(row);
