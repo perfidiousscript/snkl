@@ -20,13 +20,13 @@ snklApp.controller('MainController', ['$scope', '$http', function($scope,$http){
             })
             .style({
                 'left': function(d) {
-                    return ((d.birth_year - 1915) * 9) + "px"
+                    return ((d.first_work - 1915) * 9) + "px"
                 },
                 'top': function(d) {
-                    return ((d.birth_year - 1915) * 9) + "px"
+                    return (d.style * 5) + "px"
                 },
                 'width': function(d) {
-                    return ((d.death_year - d.birth_year) * 9) + "px"
+                    return ((d.last_work - d.first_work) * 9) + "px"
                 }
             })
             .text(function(d){
