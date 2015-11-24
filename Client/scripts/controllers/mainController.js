@@ -22,6 +22,9 @@ snklApp.controller('MainController', ['$scope', '$http', function($scope,$http){
                 'left': function(d) {
                     return ((d.birth_year - 1915) * 9) + "px"
                 },
+                'top': function(d) {
+                    return ((d.birth_year - 1915) * 9) + "px"
+                },
                 'width': function(d) {
                     return ((d.death_year - d.birth_year) * 9) + "px"
                 }

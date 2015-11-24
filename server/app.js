@@ -21,7 +21,7 @@ app.get('/populate', function(req,res) {
 
     pg.connect(conString, function(err, client, done) {
         var query = client.query(
-            "SELECT authors.author_name, dates.birth_year, dates.death_year, dates.first_work, dates.last_work " +
+            "SELECT authors.author_name, authors.style, dates.birth_year, dates.death_year, dates.first_work, dates.last_work " +
                     "FROM authors, dates " +
                     "WHERE dates.author_id = authors.id");
 
