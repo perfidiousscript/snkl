@@ -14,15 +14,26 @@ snklApp.controller('MainController', ['$scope', '$http', function($scope,$http){
         }
     );
 
+    //This function takes the author names and lifespan/workspan
+    //dates from db
+    //and translates these values into elements on the DOM
+    // that reflect this data.
     $scope.populateGraph = function(data){
+        //Selects the .showData div
         d3.select('.showData').selectAll("p")
+            //Defines data as the data passed
+            //back from the server.
             .data(data)
             .enter()
+            //Creates a unique div for each author
             .append("div")
+            //Gives each author div a class and unique id
             .attr('class','author')
             .attr('id',function(d){
                 return "'"+ d.author_name +"'";
             })
+            //Positions each author div according to
+            //the workspan and style values associated with them
             .style({
                 'left': function(d) {
                     return ((d.first_work - 1915) * 9) + "px"
@@ -34,6 +45,8 @@ snklApp.controller('MainController', ['$scope', '$http', function($scope,$http){
                     return ((d.last_work - d.first_work) * 9) + "px"
                 }
             })
+            //Sets the text within each
+            //author div equal to their name
             .text(function(d){
                 return d.author_name;
             });
