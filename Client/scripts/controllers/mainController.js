@@ -20,20 +20,20 @@ snklApp.controller('MainController', ['$scope', '$http', function($scope,$http){
     // that reflect this data.
     $scope.populateGraph = function(data){
         //Selects the .showData div
-        d3.select('.showData').selectAll("p")
-            //Defines data as the data passed
-            //back from the server.
-            .data(data)
-            .enter()
-            //Creates a unique div for each author
+        //Defines data as the data passed
+        //back from the server.
+        var authors = d3.select('.showData').selectAll("div").data(data);
+
+        //Creates a unique div for each author
+        //Gives each author div a class and unique id
+        //Positions each author div according to
+        //the workspan and style values associated with them
+        authors.enter()
             .append("div")
-            //Gives each author div a class and unique id
             .attr('class','author')
             .attr('id',function(d){
                 return "'"+ d.author_name +"'";
             })
-            //Positions each author div according to
-            //the workspan and style values associated with them
             .style({
                 'left': function(d) {
                     return ((d.first_work - 1915) * 9) + "px"
