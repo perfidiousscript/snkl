@@ -16,7 +16,10 @@ snklApp.controller('MainController', ['$scope', '$http', function($scope,$http){
             .append("div")
             .attr('class','author')
             .attr('id',function(d){
-                return "'"+ d.author_name +"'"
+                return "'"+ d.author_name +"'";
+            })
+            .style('left', function(d){
+                return ((d.birth_year - 1915) * 9) +"px";
             })
             .text(function(d){
                return d.author_name;
