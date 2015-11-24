@@ -18,8 +18,13 @@ snklApp.controller('MainController', ['$scope', '$http', function($scope,$http){
             .attr('id',function(d){
                 return "'"+ d.author_name +"'";
             })
-            .style('left', function(d){
-                return ((d.birth_year - 1915) * 9) +"px";
+            .style({
+                'left': function(d) {
+                    return ((d.birth_year - 1915) * 9) + "px"
+                },
+                'width': function(d) {
+                    return ((d.death_year - d.birth_year) * 9) + "px"
+                }
             })
             .text(function(d){
                return d.author_name;
