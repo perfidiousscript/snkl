@@ -13,7 +13,11 @@ snklApp.controller('MainController', ['$scope', '$http', function($scope,$http){
         d3.select('.showData').selectAll("p")
             .data(data)
             .enter()
-            .append("p")
+            .append("div")
+            .attr('class','author')
+            .attr('id',function(d){
+                return "'"+ d.author_name +"'"
+            })
             .text(function(d){
                return d.author_name;
             });
