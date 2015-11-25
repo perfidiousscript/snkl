@@ -42,7 +42,7 @@ snklApp.controller('MainController', ['$scope', '$http', function($scope,$http){
         //the workspan and style values associated with them
         author.append("rect")
             .attr('class','author')
-            .attr('id', function(d) {return "'"+ d.author_name +"'";})
+            .attr('id', function(d) {return "'"+ d.id +"'";})
             .attr('width', function(d) {return xScale1(d.last_work - d.first_work)})
             .attr('height', 20)
             .attr('x', function(d) {return xScale((d.last_work - d.first_work)/2 + d.first_work)})
