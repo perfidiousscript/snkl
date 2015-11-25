@@ -22,29 +22,29 @@ snklApp.controller('MainController', ['$scope', '$http', function($scope,$http){
         //Selects the .showData div
         //Defines data as the data passed
         //back from the server.
-        var authors = d3.select('.showData').selectAll("div").data(data);
+
+        var svg = d3.select('.showData').append('svg');
+
+        svg.attr("width", 900);
+        svg.attr("height", 500);
+
+        var xScale = d3.scale.linear().domain([1915, 2015]).range([0, 900]);
+        var xScale1 = d3.scale.linear().domain([0,100]).range([0,900]);
+        var yScale = d3.scale.linear().domain([0, 100]).range([0, 500]);
+
+        var authors = svg.selectAll("rect").data(data);
 
         //Creates a unique div for each author
         //Gives each author div a class and unique id
         //Positions each author div according to
         //the workspan and style values associated with them
-        authors.enter()
-            .append("div")
+        authors.enter().append("rect")
             .attr('class','author')
-            .attr('id',function(d){
-                return "'"+ d.author_name +"'";
-            })
-            .style({
-                'left': function(d) {
-                    return ((d.first_work - 1915) * 9) + "px"
-                },
-                'top': function(d) {
-                    return (d.style * 5) + "px"
-                },
-                'width': function(d) {
-                    return ((d.last_work - d.first_work) * 9) + "px"
-                }
-            })
+            .attr('id', function(d) {return "'"+ d.author_name +"'";})
+            .attr('width', function(d) {return xScale1(d.last_work - d.first_work)})
+            .attr('height', 20)
+            .attr('x', function(d) {return xScale((d.last_work - d.first_work)/2 + d.first_work)})
+            .attr('y', function(d) {return yScale(d.style)})
             //Sets the text within each
             //author div equal to their name
             .text(function(d){
