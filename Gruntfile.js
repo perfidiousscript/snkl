@@ -23,6 +23,8 @@ module.exports = function(grunt){
                     "angular/angular.min.js.map",
                     "angular-route/angular-route.min.js",
                     "angular-route/angular-route.min.js.map",
+                    "angular-animate/angular-animate.min.js",
+                    "angular-animate/angular-animate.min.js.map",
                     "d3/d3.min.js"
                 ],
                 "dest": "server/public/vendors/"

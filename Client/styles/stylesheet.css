@@ -1,3 +1,27 @@
+@keyframes fade {
+    from {opacity: 1;}
+    to {opacity: 0;}
+}
+
+.lander{
+    height: 100%;
+    width: 100%;
+    background-color: black;
+    color: #f8fcf8;
+    text-align: center;
+    font-family: 'Abril Fatface', serif;
+    font-size: 25em;
+    z-index: 1;
+    opacity:1;
+}
+
+
+.main{
+    z-index: -1;
+    position: relative;
+    top: -919px;
+}
+
 .showData{
     width: 900px;
     height: 500px;
@@ -11,4 +35,9 @@
     height: 20px;
     margin-top: 2px;
     position: relative;
+}
+
+.selected {
+    stroke: red;
+    stroke-width: 2px;
 }

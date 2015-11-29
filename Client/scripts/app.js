@@ -4,6 +4,7 @@
 var snklApp = angular.module('snklApp', ['ngRoute']);
 
 snklApp.config(['$routeProvider', function($routeProvider){
+
     $routeProvider.
         when('/main', {
             templateUrl:"/assets/views/routes/main.html",
