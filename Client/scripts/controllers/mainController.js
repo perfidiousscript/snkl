@@ -36,6 +36,8 @@ snklApp.controller('MainController', ['$scope', '$http', function($scope, $http)
             .data(data)
             .enter().append('g');
 
+        var selected;
+
         //Creates a unique div for each author
         //Gives each author div a class and unique id
         //Positions each author div according to
@@ -70,7 +72,15 @@ snklApp.controller('MainController', ['$scope', '$http', function($scope, $http)
             });
 
         author.on('click', function(d,i){
-            d3.select(this).select('rect')
+            if(selected != null){
+                d3.select(selected).select('rect')
+                    .attr('class','null');
+                console.log("Selected: ", selected)
+            }
+
+            selected = this;
+
+            d3.select(selected).select('rect')
                 .attr('class','selected')
         });
     }
