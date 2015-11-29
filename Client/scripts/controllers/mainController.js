@@ -8,7 +8,7 @@ snklApp.controller('MainController', ['$scope', '$http', function($scope, $http)
     //Call to server to pull out all author names and dates.
     $http({
         method:'GET',
-        url:'/populate'
+        url:'data/populate'
     }).success(function(data) {
             $scope.populateGraph(data);
         }
