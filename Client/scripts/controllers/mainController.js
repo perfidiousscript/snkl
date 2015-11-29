@@ -70,7 +70,7 @@ snklApp.controller('MainController', ['$scope', '$http', function($scope, $http)
             });
 
         author.on('click', function(d,i){
-            d3.select(this)
+            d3.select(this).select('rect')
                 .attr('class','selected')
         });
     }
