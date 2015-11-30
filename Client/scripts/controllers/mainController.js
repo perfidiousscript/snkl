@@ -59,6 +59,22 @@ snklApp.controller('MainController', ['$scope', '$http', function($scope, $http)
                 return yScale(d.style)
             });
 
+        //Appends a line onto each author 'rect'
+        //that spreads from that author's birthyear to their death year.
+        author.append('line')
+            .attr('y1', function(d){
+                return yScale(d.style + 2)
+            })
+            .attr('y2', function(d){
+                return yScale(d.style + 2)
+            })
+            .attr('x1', function(d){
+                return xScale(d.birth_year)
+            })
+            .attr('x2', function(d){
+                return xScale(d.death_year)
+            })
+            .style({stroke: 'black', 'stroke-width': '2px'});
 
         //Sets the text within each
         //author div equal to their name
@@ -73,6 +89,7 @@ snklApp.controller('MainController', ['$scope', '$http', function($scope, $http)
             .text(function (d) {
                 return d.author_name;
             });
+
 
         //author.on('click', function(d,i){
         //    console.log("HERE IS D: ", d, i);
