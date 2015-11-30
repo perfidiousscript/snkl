@@ -45,7 +45,7 @@ app.post('/connections', function(req,res) {
     var connections = [];
 
 
-    console.log("Req.body.id: ", req.body.id);
+    //console.log("Req.body.id: ", req.body.id);
 
     pg.connect(conString, function (err, client, done) {
         var query = client.query(
@@ -59,7 +59,7 @@ app.post('/connections', function(req,res) {
 
         query.on("end", function () {
             client.end();
-            console.log("Here are the results: ", connections);
+            //console.log("Here are the results: ", connections);
             return res.json(connections);
         });
 

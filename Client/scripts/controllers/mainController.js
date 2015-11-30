@@ -2,6 +2,9 @@
  * Created by samuelmoss on 11/23/15.
  */
 snklApp.controller('MainController', ['$scope', '$http', function($scope, $http){
+
+    $scope.connectionTypeScale = d3.scale.ordinal().domain(1,2,3).range('red','green','blue');
+
     //Array to put db info into for later use
     $scope.dataArray = [];
 
@@ -90,7 +93,6 @@ snklApp.controller('MainController', ['$scope', '$http', function($scope, $http)
             //Checks to see if an author rect is already selected,
             //if so it removes the selected class from the previously selected rect.
             //In all cases it adds the selected class to the newly selected author rect.
-
             if(selected != null){
                 d3.select(selected).select('rect')
                     .attr('class','null');
@@ -109,11 +111,23 @@ snklApp.controller('MainController', ['$scope', '$http', function($scope, $http)
                 method:'POST',
                 url:'data/connections',
                 data: d
-                //data: $scope.index
-            }).success(function(data) {
-                console.log(data);
-                }
+            }).success(
+                connections(data)
             );
         });
-    };
+        var connections = function(authorArray){
+            console.log("X-coord", d3.select('rect').filter(
+                function(d,i){
+                    return d.id == 1;
+                }).attr('x')
+            )};
+            //author.append('line')
+            //    .data(authorArray)
+            //    .attr('x1', function(d){
+            //        return d3.select('rect').id(d.author_1).x();
+            //    });
+
+
+            //console.log("Here is the abstracted data call: ", data)
+        };
 }]);
