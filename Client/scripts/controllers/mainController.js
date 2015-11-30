@@ -111,16 +111,45 @@ snklApp.controller('MainController', ['$scope', '$http', function($scope, $http)
                 method:'POST',
                 url:'data/connections',
                 data: d
-            }).success(
-                connections(data)
+            }).success(function(data){
+                    $scope.connections(data);
+                }
             );
         });
-        var connections = function(authorArray){
-            console.log("X-coord", d3.select('rect').filter(
-                function(d,i){
-                    return d.id == 1;
-                }).attr('x')
-            )};
+
+
+         $scope.connections = function(authorArray) {
+            // console.log("Author array: ", authorArray);
+             var authorRectangle = d3.select('svg').selectAll('rect');
+
+             for(var i = 0; i < authorArray.length; i++){
+                 author.append('line')
+                     .attr("x1", authorRectangle.filter(
+                     function (d) {
+                         return d.id == authorArray[i].author_1;
+                     })
+                     .attr('x')
+             )
+                 .attr("y1", authorRectangle.filter(
+                     function (d) {
+                         return d.id == authorArray[i].author_1;
+                     })
+                     .attr('y')
+             )
+                 .attr("x2", authorRectangle.filter(
+                     function (d) {
+                         return d.id == authorArray[i].author_2;
+                     })
+                     .attr('x')
+             )
+                 .attr("y2", authorRectangle.filter(
+                     function (d) {
+                         return d.id == authorArray[i].author_2;
+                     })
+                     .attr('y')
+                 );
+             };
+         };
             //author.append('line')
             //    .data(authorArray)
             //    .attr('x1', function(d){
