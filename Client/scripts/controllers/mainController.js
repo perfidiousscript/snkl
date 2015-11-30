@@ -3,8 +3,6 @@
  */
 snklApp.controller('MainController', ['$scope', '$http', function($scope, $http){
 
-    $scope.connectionTypeScale = d3.scale.ordinal().domain(1,2,3).range('red','green','blue');
-
     //Array to put db info into for later use
     $scope.dataArray = [];
 
@@ -119,35 +117,48 @@ snklApp.controller('MainController', ['$scope', '$http', function($scope, $http)
 
 
          $scope.connections = function(authorArray) {
-            // console.log("Author array: ", authorArray);
+             var connectionTypeScale = d3.scale.ordinal().domain([1, 2, 3]).range(['red', 'green', 'blue']);
+             // console.log("Author array: ", authorArray);
+
+
              var authorRectangle = d3.select('svg').selectAll('rect');
 
-             for(var i = 0; i < authorArray.length; i++){
+
+             for (var i = 0; i < authorArray.length; i++) {
+                 //console.log("Should be a color: ", connectionTypeScale(parseInt(authorArray[i].type)));
+
+                 var styleObject = {
+                     "stroke-width": 4,
+                     stroke : connectionTypeScale(parseInt(authorArray[i].type))
+                 };
+
+                 var lineColor = connectionTypeScale(2);
                  author.append('line')
                      .attr("x1", authorRectangle.filter(
-                     function (d) {
-                         return d.id == authorArray[i].author_1;
-                     })
-                     .attr('x')
-             )
-                 .attr("y1", authorRectangle.filter(
-                     function (d) {
-                         return d.id == authorArray[i].author_1;
-                     })
-                     .attr('y')
-             )
-                 .attr("x2", authorRectangle.filter(
-                     function (d) {
-                         return d.id == authorArray[i].author_2;
-                     })
-                     .attr('x')
-             )
-                 .attr("y2", authorRectangle.filter(
-                     function (d) {
-                         return d.id == authorArray[i].author_2;
-                     })
-                     .attr('y')
-                 );
+                         function (d) {
+                             return d.id == authorArray[i].author_1;
+                         })
+                         .attr('x')
+                 )
+                     .attr("y1", authorRectangle.filter(
+                         function (d) {
+                             return d.id == authorArray[i].author_1;
+                         })
+                         .attr('y')
+                 )
+                     .attr("x2", authorRectangle.filter(
+                         function (d) {
+                             return d.id == authorArray[i].author_2;
+                         })
+                         .attr('x')
+                 )
+                     .attr("y2", authorRectangle.filter(
+                         function (d) {
+                             return d.id == authorArray[i].author_2;
+                         })
+                         .attr('y')
+                 )
+                     .style(styleObject);
              };
          };
             //author.append('line')
