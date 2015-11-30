@@ -86,88 +86,88 @@ snklApp.controller('MainController', ['$scope', '$http', function($scope, $http)
         //    });
 
 
-        author.on('click', function(d,i){
+        author.on('click', function (d, i) {
 
             //Checks to see if an author rect is already selected,
             //if so it removes the selected class from the previously selected rect.
             //In all cases it adds the selected class to the newly selected author rect.
-            if(selected != null){
+            if (selected != null) {
                 d3.select(selected).select('rect')
-                    .attr('class','null');
+                    .attr('class', 'null');
             }
 
             selected = this;
 
 
             d3.select(selected).select('rect')
-                .attr('class','selected');
+                .attr('class', 'selected');
 
 
             //Call to server to pull down
             //author connections data from db.
             $http({
-                method:'POST',
-                url:'data/connections',
+                method: 'POST',
+                url: 'data/connections',
                 data: d
-            }).success(function(data){
+            }).success(function (data) {
                     $scope.connections(data);
                 }
             );
         });
 
 
-         $scope.connections = function(authorArray) {
-             var connectionTypeScale = d3.scale.ordinal().domain([1, 2, 3]).range(['red', 'green', 'blue']);
-             // console.log("Author array: ", authorArray);
+        $scope.connections = function (authorArray) {
+            var connectionTypeScale = d3.scale.ordinal().domain([1, 2, 3]).range(['red', 'green', 'blue']);
+            // console.log("Author array: ", authorArray);
 
 
-             var authorRectangle = d3.select('svg').selectAll('rect');
+            var authorRectangle = d3.select('svg').selectAll('rect');
+
+            d3.select('svg').selectAll('line').remove();
 
 
-             for (var i = 0; i < authorArray.length; i++) {
-                 //console.log("Should be a color: ", connectionTypeScale(parseInt(authorArray[i].type)));
+            for (var i = 0; i < authorArray.length; i++) {
 
-                 var styleObject = {
-                     "stroke-width": 4,
-                     stroke : connectionTypeScale(parseInt(authorArray[i].type))
-                 };
+                var styleObject = {
+                    "stroke-width": 4,
+                    stroke: connectionTypeScale(parseInt(authorArray[i].type))
+                };
 
-                 var lineColor = connectionTypeScale(2);
-                 author.append('line')
-                     .attr("x1", authorRectangle.filter(
-                         function (d) {
-                             return d.id == authorArray[i].author_1;
-                         })
-                         .attr('x')
-                 )
-                     .attr("y1", authorRectangle.filter(
-                         function (d) {
-                             return d.id == authorArray[i].author_1;
-                         })
-                         .attr('y')
-                 )
-                     .attr("x2", authorRectangle.filter(
-                         function (d) {
-                             return d.id == authorArray[i].author_2;
-                         })
-                         .attr('x')
-                 )
-                     .attr("y2", authorRectangle.filter(
-                         function (d) {
-                             return d.id == authorArray[i].author_2;
-                         })
-                         .attr('y')
-                 )
-                     .style(styleObject);
-             };
-         };
-            //author.append('line')
-            //    .data(authorArray)
-            //    .attr('x1', function(d){
-            //        return d3.select('rect').id(d.author_1).x();
-            //    });
-
-
-            //console.log("Here is the abstracted data call: ", data)
+                author.append('line')
+                    .attr("x1", authorRectangle.filter(
+                        function (d) {
+                            return d.id == authorArray[i].author_1;
+                        })
+                        .attr('x')
+                )
+                    .attr("y1", authorRectangle.filter(
+                        function (d) {
+                            return d.id == authorArray[i].author_1;
+                        })
+                        .attr('y')
+                )
+                    .attr("x2", authorRectangle.filter(
+                        function (d) {
+                            return d.id == authorArray[i].author_2;
+                        })
+                        .attr('x')
+                )
+                    .attr("y2", authorRectangle.filter(
+                        function (d) {
+                            return d.id == authorArray[i].author_2;
+                        })
+                        .attr('y')
+                )
+                    .style(styleObject);
+            }
         };
+        //author.append('line')
+        //    .data(authorArray)
+        //    .attr('x1', function(d){
+        //        return d3.select('rect').id(d.author_1).x();
+        //    });
+
+
+        //console.log("Here is the abstracted data call: ", data)
+    };
 }]);
