@@ -7,7 +7,12 @@ var app = express();
 
 var path = require('path');
 
+var bodyParser = require('body-parser');
+
 var data = require('./data');
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({expanded: true}));
 
 
 //Estabish port

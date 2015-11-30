@@ -57,6 +57,8 @@ snklApp.controller('MainController', ['$scope', '$http', function($scope, $http)
             .attr('y', function (d) {
                 return yScale(d.style)
             });
+
+
         //Sets the text within each
         //author div equal to their name
         author.append("text")
@@ -71,17 +73,47 @@ snklApp.controller('MainController', ['$scope', '$http', function($scope, $http)
                 return d.author_name;
             });
 
+        //author.on('click', function(d,i){
+        //    console.log("HERE IS D: ", d, i);
+        //    d3.xhr('/data/connections')
+        //        .send('GET', d, function(error, data){
+        //            if(error){
+        //                console.log("error: ", error)
+        //            }
+        //            console.log(data);
+        //        })
+        //    });
+
+
         author.on('click', function(d,i){
+
+            //Checks to see if an author rect is already selected,
+            //if so it removes the selected class from the previously selected rect.
+            //In all cases it adds the selected class to the newly selected author rect.
+
             if(selected != null){
                 d3.select(selected).select('rect')
                     .attr('class','null');
-                console.log("Selected: ", selected)
             }
 
             selected = this;
 
+
             d3.select(selected).select('rect')
-                .attr('class','selected')
+                .attr('class','selected');
+
+
+            //Call to server to pull down
+            //author connections data from db.
+            $http({
+                method:'POST',
+                url:'data/connections',
+                data: d
+                //data: $scope.index
+            }).success(function(data) {
+                console.log(data);
+                }
+            );
         });
-    }
+    };
 }]);
