@@ -69,4 +69,30 @@ app.post('/connections', function(req,res) {
     })
 });
 
+app.post('/details', function(req,res){
+
+   var details = [];
+
+    console.log("Req body id: ", req.body.id);
+    //pg.connect(conString, function (err, client, done) {
+    //    var query = client.query(
+    //        , [req.body.id]);
+    //
+    //    query.on("row", function (row) {
+    //        connections.push(row);
+    //    });
+    //
+    //    query.on("end", function () {
+    //        client.end();
+    //        //console.log("Here are the results: ", connections);
+    //        return res.json(connections);
+    //    });
+    //
+    //    if (err) {
+    //        console.log(err);
+    //    }
+    //})
+    res.send(true);
+});
+
 module.exports = app;

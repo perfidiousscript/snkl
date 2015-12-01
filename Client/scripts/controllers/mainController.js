@@ -86,7 +86,10 @@ snklApp.controller('MainController', ['$scope', '$http', function($scope, $http)
             .attr('r', 7)
             .style('fill', 'blue')
             .attr('class', 'details')
-            .text('Details');
+            .text('Details')
+            .on('click', function(d){
+                $scope.details(d)
+            });
 
         //Sets the text within each
         //author div equal to their name
@@ -114,10 +117,6 @@ snklApp.controller('MainController', ['$scope', '$http', function($scope, $http)
         //        })
         //    });
 
-
-        author.selectAll('.details').on('click', function(d,i){
-            console.log("This is id: ", d.id)
-        });
 
         author.selectAll('rect').on('click', function (d, i) {
 
@@ -193,6 +192,16 @@ snklApp.controller('MainController', ['$scope', '$http', function($scope, $http)
                 )
                     .style(styleObject);
             }
+        };
+
+        $scope.details = function(authorData){
+            $http({
+                method: 'POST',
+                url: 'data/details',
+                data: authorData
+            }).success(function(data){
+                console.log(data);
+            })
         };
 
         //author.append('line')
