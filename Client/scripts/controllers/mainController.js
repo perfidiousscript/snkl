@@ -45,7 +45,7 @@ snklApp.controller('MainController', ['$scope', '$http', function($scope, $http)
         //the workspan and style values associated with them
         author.append("rect")
             .attr('class', 'author')
-            .attr('id', function (d) {
+            .attr('class', function (d) {
                 return "'" + d.id + "'";
             })
             .attr('width', function (d) {
@@ -76,6 +76,18 @@ snklApp.controller('MainController', ['$scope', '$http', function($scope, $http)
             })
             .style({stroke: 'black', 'stroke-width': '2px'});
 
+        author.append('circle')
+            .attr('cy', function(d){
+                return yScale(d.style)
+            })
+            .attr('cx', function(d){
+                return xScale(d.last_work)
+            })
+            .attr('r', 7)
+            .style('fill', 'blue')
+            .attr('class', 'details')
+            .text('Details');
+
         //Sets the text within each
         //author div equal to their name
         author.append("text")
@@ -103,7 +115,11 @@ snklApp.controller('MainController', ['$scope', '$http', function($scope, $http)
         //    });
 
 
-        author.on('click', function (d, i) {
+        author.selectAll('.details').on('click', function(d,i){
+            console.log("This is id: ", d.id)
+        });
+
+        author.selectAll('rect').on('click', function (d, i) {
 
             //Checks to see if an author rect is already selected,
             //if so it removes the selected class from the previously selected rect.
@@ -178,6 +194,7 @@ snklApp.controller('MainController', ['$scope', '$http', function($scope, $http)
                     .style(styleObject);
             }
         };
+
         //author.append('line')
         //    .data(authorArray)
         //    .attr('x1', function(d){
