@@ -71,28 +71,63 @@ app.post('/connections', function(req,res) {
 
 app.post('/details', function(req,res){
 
-   var details = [];
+    var detailsObject = {};
+    var bio = [];
+    var works = [];
+    var id = req.body.id;
 
-    console.log("Req body id: ", req.body.id);
-    //pg.connect(conString, function (err, client, done) {
-    //    var query = client.query(
-    //        , [req.body.id]);
-    //
-    //    query.on("row", function (row) {
-    //        connections.push(row);
-    //    });
-    //
-    //    query.on("end", function () {
-    //        client.end();
-    //        //console.log("Here are the results: ", connections);
-    //        return res.json(connections);
-    //    });
-    //
-    //    if (err) {
-    //        console.log(err);
-    //    }
-    //})
-    res.send(true);
+    var bioQueryString =  "SELECT details.bio, details.image " +
+    "FROM details " +
+    "WHERE details.author_id = $1;";
+
+    var workQueryString =  "SELECT works.work_title, works.pub_year " +
+    "FROM works " +
+    "WHERE works.authorsp_key = $1;";
+
+        pg.connect(conString, function (err, client, done) {
+            var query = client.query(
+                bioQueryString, [id]
+            );
+
+            query.on("row", function (row) {
+                bio.push(row);
+            });
+
+            query.on("end", function () {
+                client.end();
+
+                    pg.connect(conString, function (err, client, done) {
+                        var query = client.query(
+                            workQueryString, [id]
+                        );
+
+                        query.on("row", function (row) {
+                            works.push(row);
+                        });
+
+                        query.on("end", function () {
+                            client.end();
+
+                            detailsObject.bio = bio;
+                            detailsObject.works = works;
+                            res.json(detailsObject);
+                        });
+
+                        if (err) {
+                            console.log(err);
+                        }
+                    })
+            });
+
+            if (err) {
+                console.log(err);
+            }
+        })
 });
+
+    // make query string
+    // call runQuery with your query string
+    // res.json the results back to client side
+    // res.json( your variable );
 
 module.exports = app;

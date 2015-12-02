@@ -88,7 +88,7 @@ snklApp.controller('MainController', ['$scope', '$http', function($scope, $http)
             .attr('class', 'details')
             .text('Details')
             .on('click', function(d){
-                $scope.details(d)
+                $scope.details(d);
             });
 
         //Sets the text within each
@@ -148,7 +148,7 @@ snklApp.controller('MainController', ['$scope', '$http', function($scope, $http)
         });
 
 
-        $scope.connections = function (authorArray) {
+        $scope.connections = function(authorArray) {
             var connectionTypeScale = d3.scale.ordinal().domain([1, 2, 3]).range(['red', 'green', 'blue']);
             // console.log("Author array: ", authorArray);
 
@@ -200,17 +200,8 @@ snklApp.controller('MainController', ['$scope', '$http', function($scope, $http)
                 url: 'data/details',
                 data: authorData
             }).success(function(data){
-                console.log(data);
+                console.log("Here is the data from call: ", data);
             })
         };
-
-        //author.append('line')
-        //    .data(authorArray)
-        //    .attr('x1', function(d){
-        //        return d3.select('rect').id(d.author_1).x();
-        //    });
-
-
-        //console.log("Here is the abstracted data call: ", data)
     };
 }]);
