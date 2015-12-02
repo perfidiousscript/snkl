@@ -15,6 +15,23 @@
     opacity:1;
 }
 
+.header{
+    text-align: center;
+}
+
+.navs{
+    margin: 0 auto;
+    text-align: center;
+}
+
+.nav{
+    margin: 0 70px;
+}
+
+.nav a{
+    text-decoration: none;
+}
+
 .main{
     z-index: -1;
     position: relative;
