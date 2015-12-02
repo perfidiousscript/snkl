@@ -41,8 +41,12 @@
 
 .authorBio{
     margin: 20px;
+    padding: 5px;
+    height: 130px;
+    border: 1px solid black;
     position: relative;
     top: 35px;
+    overflow: auto;
 }
 
 .showData{
