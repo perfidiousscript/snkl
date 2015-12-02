@@ -6,6 +6,8 @@ snklApp.controller('MainController', ['$scope', '$http', function($scope, $http)
     //Array to put db info into for later use
     $scope.dataArray = [];
 
+    $scope.detailData = {};
+
     //Call to server to pull out all author names and dates.
     $http({
         method:'GET',
@@ -200,7 +202,8 @@ snklApp.controller('MainController', ['$scope', '$http', function($scope, $http)
                 url: 'data/details',
                 data: authorData
             }).success(function(data){
-                console.log("Here is the data from call: ", data);
+                 $scope.detailData = data;
+                console.log("Here is detailData:", $scope.detailData);
             })
         };
     };

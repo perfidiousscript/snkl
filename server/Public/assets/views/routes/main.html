@@ -1,3 +1,22 @@
-<div class="details"></div>
+
+<div class="details">
+    <div class="topContainer">
+        <div class="authorImage">
+            <img ng-src={{detailData.bio[0].image}}>
+        </div>
+        <div class="authorBio">
+            {{detailData.bio[0].bio}}
+        </div>
+    </div>
+
+    <div class="authorWorks">
+        <h4>Works</h4>
+        <div ng-repeat="work in detailData.works">
+            <span>{{work.work_title}}</span>
+            <span>{{work.pub_year}}</span>
+        </div>
+    </div>
+</div>
+
 <div class="showData">
 </div>

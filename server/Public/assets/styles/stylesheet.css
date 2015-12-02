@@ -29,6 +29,22 @@
     float: left;
 }
 
+.topContainer{
+    height: 250px
+}
+
+.authorImage{
+    position: relative;
+    top: 35px;
+    left: 35px;
+}
+
+.authorBio{
+    margin: 20px;
+    position: relative;
+    top: 35px;
+}
+
 .showData{
     width: 900px;
     height: 500px;
@@ -42,6 +58,10 @@
     height: 20px;
     margin-top: 2px;
     position: relative;
+}
+
+.authorWorks{
+    margin:20px;
 }
 
 .selected {
