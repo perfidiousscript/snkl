@@ -76,9 +76,10 @@ app.post('/details', function(req,res){
     var works = [];
     var id = req.body.id;
 
-    var bioQueryString =  "SELECT details.bio, details.image " +
-    "FROM details " +
-    "WHERE details.author_id = $1;";
+    var bioQueryString =  "SELECT details.bio, details.image, authors.author_name " +
+    "FROM details, authors " +
+    "WHERE authors.id = details.author_id " +
+    "AND details.author_id = $1;";
 
     var workQueryString =  "SELECT works.work_title, works.pub_year " +
     "FROM works " +

@@ -4,13 +4,17 @@
         <div class="authorImage">
             <img ng-src={{detailData.bio[0].image}}>
         </div>
+        <div class="authorName">
+            <span>{{detailData.bio[0].author_name}}</span>
+        </div>
         <div class="authorBio">
             {{detailData.bio[0].bio}}
         </div>
     </div>
 
+
+    <h4>Works</h4>
     <div class="authorWorks">
-        <h4>Works</h4>
         <div ng-repeat="work in detailData.works">
             <span>{{work.work_title}}</span>
             <span>{{work.pub_year}}</span>
