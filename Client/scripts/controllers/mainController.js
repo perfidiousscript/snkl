@@ -53,7 +53,7 @@ snklApp.controller('MainController', ['$scope', '$http', function($scope, $http)
             .attr('width', function (d) {
                 return xScale1(d.last_work - d.first_work)
             })
-            .attr('height', 20)
+            .attr('height', 30)
             .attr('x', function (d) {
                 return xScale((d.last_work - d.first_work) / 2 + d.first_work)
             })
@@ -76,7 +76,7 @@ snklApp.controller('MainController', ['$scope', '$http', function($scope, $http)
             .attr('x2', function(d){
                 return xScale(d.death_year)
             })
-            .style({stroke: 'black', 'stroke-width': '2px'});
+            .style({stroke: 'black', 'stroke-width': '8'});
 
         author.append('circle')
             .attr('cy', function(d){
@@ -102,6 +102,7 @@ snklApp.controller('MainController', ['$scope', '$http', function($scope, $http)
             .attr('y', function (d) {
                 return yScale(d.style + 3)
             })
+            .attr('font-size', '20px')
             .style('fill', 'white')
             .text(function (d) {
                 return d.author_name;
@@ -163,7 +164,7 @@ snklApp.controller('MainController', ['$scope', '$http', function($scope, $http)
             for (var i = 0; i < authorArray.length; i++) {
 
                 var styleObject = {
-                    "stroke-width": 4,
+                    "stroke-width": 6,
                     stroke: connectionTypeScale(parseInt(authorArray[i].type))
                 };
 
