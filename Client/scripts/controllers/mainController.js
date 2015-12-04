@@ -32,12 +32,19 @@ snklApp.controller('MainController', ['$scope', '$http', function($scope, $http)
         var xScale1 = d3.scale.linear().domain([0, 100]).range([0, 900]);
         var yScale = d3.scale.linear().domain([0, 100]).range([0, 500]);
 
+        var xAxis = d3.svg.axis()
+            .scale(xScale)
+            .orient('bottom');
+
+
         svg.attr("width", 900);
         svg.attr("height", 500);
 
         var author = svg.selectAll("g")
             .data(data)
-            .enter().append('g');
+            .enter()
+            .append('g')
+            .call(xAxis);
 
         var selected;
 
@@ -86,7 +93,8 @@ snklApp.controller('MainController', ['$scope', '$http', function($scope, $http)
                 return xScale(d.last_work)
             })
             .attr('r', 7)
-            .style('fill', 'blue')
+            .style('fill', 'white')
+            .style('stroke', 'black')
             .attr('class', 'details')
             .text('Details')
             .on('click', function(d){
