@@ -60,10 +60,13 @@ snklApp.controller('MainController', ['$scope', '$http', function($scope, $http)
             .attr('width', function (d) {
                 return xScale1(d.last_work - d.first_work)
             })
-            .attr('height', 30)
-            .attr('x', function (d) {
-                return xScale((d.last_work - d.first_work) / 2 + d.first_work)
+            .attr('height', 40)
+            .attr('x', function(d){
+                return xScale(d.first_work)
             })
+            //.attr('x', function (d) {
+            //    return xScale((d.last_work - d.first_work) / 2 + d.first_work)
+            //})
             .attr('y', function (d) {
                 return yScale(d.style)
             });
@@ -87,10 +90,10 @@ snklApp.controller('MainController', ['$scope', '$http', function($scope, $http)
 
         author.append('circle')
             .attr('cy', function(d){
-                return yScale(d.style)
+                return yScale(d.style + 1)
             })
             .attr('cx', function(d){
-                return xScale(d.last_work)
+                return xScale(d.first_work)
             })
             .attr('r', 7)
             .style('fill', 'white')

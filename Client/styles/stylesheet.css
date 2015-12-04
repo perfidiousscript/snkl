@@ -62,7 +62,8 @@ p span {
 
 .authorBio{
     padding: 30px;
-    height: 40%;
+    font-size: 2em;
+    height: 100%;
     overflow: auto;
 }
 
