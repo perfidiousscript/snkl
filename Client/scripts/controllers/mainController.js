@@ -75,10 +75,10 @@ snklApp.controller('MainController', ['$scope', '$http', function($scope, $http)
         //that spreads from that author's birthyear to their death year.
         author.append('line')
             .attr('y1', function(d){
-                return yScale(d.style + 2)
+                return yScale(d.style + 4)
             })
             .attr('y2', function(d){
-                return yScale(d.style + 2)
+                return yScale(d.style + 4)
             })
             .attr('x1', function(d){
                 return xScale(d.birth_year)
@@ -90,10 +90,10 @@ snklApp.controller('MainController', ['$scope', '$http', function($scope, $http)
 
         author.append('circle')
             .attr('cy', function(d){
-                return yScale(d.style + 1)
+                return yScale(d.style - 1)
             })
             .attr('cx', function(d){
-                return xScale(d.first_work)
+                return xScale(d.first_work - 1)
             })
             .attr('r', 7)
             .style('fill', 'white')
@@ -108,10 +108,10 @@ snklApp.controller('MainController', ['$scope', '$http', function($scope, $http)
         //author div equal to their name
         author.append("text")
             .attr('x', function (d) {
-                return xScale((d.last_work - d.first_work) / 2 + d.first_work)
+                return xScale(d.first_work)
             })
             .attr('y', function (d) {
-                return yScale(d.style + 3)
+                return yScale(d.style)
             })
             .attr('font-size', '20px')
             .style('fill', 'white')
