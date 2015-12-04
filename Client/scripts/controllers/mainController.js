@@ -6,6 +6,7 @@ snklApp.controller('MainController', ['$scope', '$http', function($scope, $http)
     //Array to put db info into for later use
     $scope.dataArray = [];
 
+    //Array holds an author bio and image when the detail button is pressed.
     $scope.detailData = {};
 
     //Call to server to pull out all author names and dates.
@@ -28,10 +29,12 @@ snklApp.controller('MainController', ['$scope', '$http', function($scope, $http)
         //back from the server.
         var svg = d3.select('.showData').append('svg');
 
+        //Sets the scales of the svg graph to take in raw year values and spit out pixels
         var xScale = d3.scale.linear().domain([1915, 2015]).range([0, 900]);
         var xScale1 = d3.scale.linear().domain([0, 100]).range([0, 900]);
         var yScale = d3.scale.linear().domain([0, 100]).range([0, 500]);
 
+        //Creates an x axis with years listed
         var xAxis = d3.svg.axis()
             .scale(xScale)
             .orient('bottom');
@@ -40,6 +43,7 @@ snklApp.controller('MainController', ['$scope', '$http', function($scope, $http)
         svg.attr("width", 900);
         svg.attr("height", 500);
 
+        //Groups all author elements and passes in the author date data to populate the graph
         var author = svg.selectAll("g")
             .data(data)
             .enter()
@@ -88,6 +92,7 @@ snklApp.controller('MainController', ['$scope', '$http', function($scope, $http)
             })
             .style({stroke: 'black', 'stroke-width': '8'});
 
+        //Creates a circle element near each author rectangle to click on for details.
         author.append('circle')
             .attr('cy', function(d){
                 return yScale(d.style - 1)
@@ -100,11 +105,37 @@ snklApp.controller('MainController', ['$scope', '$http', function($scope, $http)
             .style('stroke', 'black')
             .attr('class', 'details')
             .text('Details')
-            .on('click', function(d){
-                $scope.details(d);
-            });
+            .on('click', function (d, i) {
 
-        //Sets the text within each
+                //Checks to see if an author rect is already selected,
+                //if so it removes the selected class from the previously selected rect.
+                //In all cases it adds the selected class to the newly selected author rect.
+                if (selected != null) {
+                    d3.select(selected).select('rect')
+                        .attr('class', 'null');
+                }
+
+                selected = this;
+
+
+                d3.select(selected).select('rect')
+                    .attr('class', 'selected');
+
+                $scope.details(d);
+
+                //Call to server to pull down
+                //author connections data from db.
+                $http({
+                    method: 'POST',
+                    url: 'data/connections',
+                    data: d
+                }).success(function (data) {
+                        $scope.connections(data);
+                    }
+                );
+            });;
+
+        //Sets the text above each
         //author div equal to their name
         author.append("text")
             .attr('x', function (d) {
@@ -118,48 +149,6 @@ snklApp.controller('MainController', ['$scope', '$http', function($scope, $http)
             .text(function (d) {
                 return d.author_name;
             });
-
-
-        //author.on('click', function(d,i){
-        //    console.log("HERE IS D: ", d, i);
-        //    d3.xhr('/data/connections')
-        //        .send('GET', d, function(error, data){
-        //            if(error){
-        //                console.log("error: ", error)
-        //            }
-        //            console.log(data);
-        //        })
-        //    });
-
-
-        author.selectAll('rect').on('click', function (d, i) {
-
-            //Checks to see if an author rect is already selected,
-            //if so it removes the selected class from the previously selected rect.
-            //In all cases it adds the selected class to the newly selected author rect.
-            if (selected != null) {
-                d3.select(selected).select('rect')
-                    .attr('class', 'null');
-            }
-
-            selected = this;
-
-
-            d3.select(selected).select('rect')
-                .attr('class', 'selected');
-
-
-            //Call to server to pull down
-            //author connections data from db.
-            $http({
-                method: 'POST',
-                url: 'data/connections',
-                data: d
-            }).success(function (data) {
-                    $scope.connections(data);
-                }
-            );
-        });
 
 
         $scope.connections = function(authorArray) {
